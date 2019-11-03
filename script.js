@@ -1,14 +1,15 @@
+
 houses = [
 
     {
 
         "Date": 1,
         "Name": "LanTest101",
-        "Address": "x1",
+        "Address": "123121212",
         "Telephone": "yLanTest101",
         "Old Stb": "M",
         "New Stb": "10/16/1941",
-        "old smart": "Caucasian/White",
+        "Old smart": "Caucasian/White",
         "New smart": "Caucasian/White",
         "Warranty": "Caucasian/White",
         "Remarks": "Bad",
@@ -17,20 +18,43 @@ houses = [
         "Date": 1,
         "Name": "LanTest101",
         "Address": "x1",
-        "Telephone": "yLanTest101",
+        "Telephone": "12121221",
         "Old Stb": "F",
         "New Stb": "10/16/1941",
-        "old smart": "Caucasian/White",
+        "Old smart": "Caucasian/White",
         "New smart": "Caucasian/White",
         "Warranty": "Caucasian/White",
         "Remarks": "Good",
     },
+    {
+        "Date": 1,
+        "Name": "LanTest101",
+        "Address": "x1",
+        "Telephone": "12121221",
+        "Old Stb": "F",
+        "New Stb": "10/16/1941",
+        "Old smart": "Caucasian/White",
+        "New smart": "Caucasian/White",
+        "Warranty": "Caucasian/White",
+        "Remarks": "Good",
+    },
+    {
+        "Date": 1,
+        "Name": "LanTest101",
+        "Address": "x1",
+        "Telephone": "12121221",
+        "Old Stb": "F",
+        "New Stb": "10/16/1941",
+        "Old smart": "Caucasian/White",
+        "New smart": "Caucasian/White",
+        "Warranty": "Caucasian/White",
+        "Remarks": "Good",
+    },
+
 ]
 
 
 $(document).ready(function () {
-
-   
 
     myTable = $('#dataTable').DataTable({
         destroy: true,
@@ -51,7 +75,7 @@ $(document).ready(function () {
             { "data": "Telephone" },
             { "data": "Old Stb" },
             { "data": "New Stb" },
-            { "data": "old smart" },
+            { "data": "Old smart" },
             { "data": "New smart" },
             { "data": "Warranty" },
             { "data": "Remarks" },
@@ -66,17 +90,44 @@ $(document).ready(function () {
         myTable.search(this.value).draw();
     });
 
+});
 
+
+function ConvertFormToJSON(form) {
+    var array = jQuery(form).serializeArray();
+    var json = {};
+
+    jQuery.each(array, function () {
+        json[this.name] = this.value || '';
+    });
+
+    return json;
+}
+
+$(function () {
+    $("form").on("submit", function (e) {
+            e.preventDefault();
+            console.log('clicked');
+            var form = this;
+            houses.push(ConvertFormToJSON(form))
+
+
+        }
+    );
 });
 
 
 
-// for date
+function ConvertFormToJSON(form) {
+    var array = jQuery(form).serializeArray();
+    console.log(array);
+    var json = {};
 
-$('#datepicker').datepicker({
-    weekStart: 1,
-    daysOfWeekHighlighted: "6,0",
-    autoclose: true,
-    todayHighlight: true,
-});
-$('#datepicker').datepicker("setDate", new Date());
+    jQuery.each(array, function () {
+        json[this.name] = this.value || '';
+    });
+
+    return json;
+}
+
+
