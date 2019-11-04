@@ -8,3 +8,7 @@
   }
   .dataTables_filter, .dataTables_info { display: none; }
 
+  .form-group{
+      margin-bottom: 0 !important;
+  }
+

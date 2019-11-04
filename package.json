@@ -9,9 +9,12 @@
         "release": "build"
     },
     "devDependencies": {
+        "bootstrap": "^4.3.1",
         "electron": "^5.0.6",
         "electron-builder": "^21.0.15",
-        "knex": "^0.20.1"
+        "jquery": "^3.4.1",
+        "knex": "^0.20.1",
+        "popper.js": "^1.16.0"
     },
     "dependencies": {
         "sqlite3": "^4.0.9"

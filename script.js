@@ -1,65 +1,60 @@
+const path = require('path');
+const url = require('url');
 
-houses = [
+// customers=[]
+
+customers = [
 
     {
 
-        "Date": 1,
-        "Name": "LanTest101",
-        "Address": "123121212",
-        "Telephone": "yLanTest101",
-        "Old Stb": "M",
-        "New Stb": "10/16/1941",
-        "Old smart": "Caucasian/White",
-        "New smart": "Caucasian/White",
-        "Warranty": "Caucasian/White",
-        "Remarks": "Bad",
+        "date": "1",
+        "name": "LanTest101",
+        "address": "123121212",
+        "telephone": "yLanTest101",
+        "old_stb": "M",
+        "new_stb": "10/16/1941",
+        "old_smart": "Caucasian/White",
+        "new_smart": "Caucasian/White",
+        "warranty": "Caucasian/White",
+        "remarks": "Bad",
     },
     {
-        "Date": 1,
-        "Name": "LanTest101",
-        "Address": "x1",
-        "Telephone": "12121221",
-        "Old Stb": "F",
-        "New Stb": "10/16/1941",
-        "Old smart": "Caucasian/White",
-        "New smart": "Caucasian/White",
-        "Warranty": "Caucasian/White",
-        "Remarks": "Good",
-    },
-    {
-        "Date": 1,
-        "Name": "LanTest101",
-        "Address": "x1",
-        "Telephone": "12121221",
-        "Old Stb": "F",
-        "New Stb": "10/16/1941",
-        "Old smart": "Caucasian/White",
-        "New smart": "Caucasian/White",
-        "Warranty": "Caucasian/White",
-        "Remarks": "Good",
-    },
-    {
-        "Date": 1,
-        "Name": "LanTest101",
-        "Address": "x1",
-        "Telephone": "12121221",
-        "Old Stb": "F",
-        "New Stb": "10/16/1941",
-        "Old smart": "Caucasian/White",
-        "New smart": "Caucasian/White",
-        "Warranty": "Caucasian/White",
-        "Remarks": "Good",
-    },
+        "address": "kathmandu",
+        "date": "11/11/2019",
+        "name": "Suson",
+        "new_smart": "OXFFA126",
+        "new_stb": "OXFFA124",
+        "old_smart": "OXFFA125",
+        "old_stb": "OXFFA123",
+        "remarks": "Good",
+        "telephone": "+789 123456",
+        "warranty": "OXFFA127"
+    }
 
 ]
 
 
-$(document).ready(function () {
+var knex = require("knex")({
+    client: "sqlite3",
+    connection: {
+        filename: path.join(__dirname, 'database.sqlite')
+    },
+    useNullAsDefault: true
+});
 
+knex('customers').select().then(function (data) {
+    //do something here
+    console.log(data);
+    data.forEach(function (singleRow) {
+        delete singleRow.id;
+        customers.push(singleRow);
+        console.log(singleRow);
+    });
+    console.log(customers)
     myTable = $('#dataTable').DataTable({
         destroy: true,
         dom: 'lifrtp',
-        "data": houses,
+        "data": customers,
         "iDisplayLength": 25,
         "lengthChange": false,
         responsive: true,
@@ -69,22 +64,26 @@ $(document).ready(function () {
         },
 
         "columns": [
-            { "data": "Date" },
-            { "data": "Name" },
-            { "data": "Address" },
-            { "data": "Telephone" },
-            { "data": "Old Stb" },
-            { "data": "New Stb" },
-            { "data": "Old smart" },
-            { "data": "New smart" },
-            { "data": "Warranty" },
-            { "data": "Remarks" },
+            { "data": "date" },
+            { "data": "name" },
+            { "data": "address" },
+            { "data": "telephone" },
+            { "data": "old_stb" },
+            { "data": "new_stb" },
+            { "data": "old_smart" },
+            { "data": "new_smart" },
+            { "data": "warranty" },
+            { "data": "remarks" },
             {
                 "data": null,
                 "defaultContent": "<button type='button' class='btn btn-primary btn-sm'>Edit</button>"
             }
         ]
     });
+});
+
+
+$(document).ready(function () {
 
     $("#filterbox").keyup(function () {
         myTable.search(this.value).draw();
@@ -106,13 +105,12 @@ function ConvertFormToJSON(form) {
 
 $(function () {
     $("form").on("submit", function (e) {
-            e.preventDefault();
-            console.log('clicked');
-            var form = this;
-            houses.push(ConvertFormToJSON(form))
+        e.preventDefault();
+        console.log('clicked');
+        var form = this;
+        houses.push(ConvertFormToJSON(form))
 
-
-        }
+    }
     );
 });
 
@@ -129,5 +127,7 @@ function ConvertFormToJSON(form) {
 
     return json;
 }
+
+
 
 
