@@ -18,7 +18,10 @@
 
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
 
     <title>Satta Box 1.0.0</title>
@@ -29,6 +32,7 @@
             <input class="form-control" type="search" id="filterbox" placeholder="🔎 Search customers ..."
                 style="width: 500px;">
         </form>
+        <button class="btn" type="button" id="mySave">Save</button>
         <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#exampleModal">➕ Add
             Customer</button>
     </nav>
@@ -50,7 +54,7 @@
                     <th scope="col">New Smart Num.</th>
                     <th scope="col">Warranty Num.</th>
                     <th scope="col">Remarks</th>
-                    <th scope="col">Edit</th>
+                    <th scope="col" width="9%">Update</th>
                 </tr>
             </thead>
         </table>
@@ -88,12 +92,12 @@
                                 name="name">
                         </div>
 
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                             <label for="address" class="col-form-label">Address:</label>
                             <input type="text" class="form-control" id="address" placeholder="Bharatpur,09,Chitwan"
                                 name="address">
                         </div>
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                             <label for="telephone" class="col-form-label">Telephone:</label>
                             <input type="text" class="form-control" id="telephonw" placeholder="9841XXXXXX/0565XXXXX"
                                 name="telephone">
@@ -131,7 +135,89 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input value="Add" type="submit" class="btn btn-primary">
+                    <input value="➕ Add" type="submit" class="btn btn-primary">
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" id="updateModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">🔄 Update
+                        Customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-row" id="customerFormupdate" name="form">
+                        <input type="hidden" name="id">
+                        <div class="form-group date col-md-6" data-provide="datepicker">
+                            <label for="data-date" class="col-form-label ">Date:</label>
+                            <div class="input-group date" data-provide="datepicker">
+                                <input type="text" class="form-control" id="data-date" placeholder="DD/MM/YYYY"
+                                    name="date">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="name" class="col-form-label ">Name:</label>
+                            <input type="text" class="form-control" id="name" placeholder=" Shree Prasad Gautam"
+                                name="name">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="address" class="col-form-label">Address:</label>
+                            <input type="text" class="form-control" id="address" placeholder="Bharatpur,09,Chitwan"
+                                name="address">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="telephone" class="col-form-label">Telephone:</label>
+                            <input type="text" class="form-control" id="telephonw" placeholder="9841XXXXXX/0565XXXXX"
+                                name="telephone">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="Ostb" class="col-form-label">Old STB No:</label>
+                            <input type="text" class="form-control" id="Ostb" placeholder="0AXXXXX" name="old_stb">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="Nstb" class="col-form-label">New STB No:</label>
+                            <input type="text" class="form-control" id="Nstb" placeholder="0AXXXXX" name="new_stb">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="osmart" class="col-form-label">Old Smart Card No:</label>
+                            <input type="text" class="form-control" id="smart" placeholder="0AXXXXX" name="old_smart">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="nsmart" class="col-form-label">New Smart Card No:</label>
+                            <input type="text" class="form-control" id="smart" placeholder="0AXXXXX" name="new_smart">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="warranty" class="col-form-label">Warranty No:</label>
+                            <input type="text" class="form-control" id="warranty" placeholder="0AXXXXX" name="warranty">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="remarks" class="col-form-label">Remarks:</label>
+                            <input type="text" class="form-control" id="remarks"
+                                placeholder="Any additional infomation..." name="remarks">
+                        </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input value="🔄 Update" type="submit" class="btn btn-primary">
                 </div>
                 </form>
             </div>
@@ -139,6 +225,7 @@
     </div>
 </body>
 <script>
+    const Swal = require('sweetalert2');
     $('#customerForm').on('submit', function (e) {
         e.preventDefault();
 
@@ -151,11 +238,59 @@
             contentType: 'application/json',
             success: function (res) {
                 $('#exampleModal').modal("toggle");
-                alert('Added Successfully.');
+                Swal.fire({
+                    icon: 'success',
+                    title: '',
+                    text: 'Successfully Added!',
+                    timer: 2000
+                    
+                });
+                
                 myTable.ajax.reload();
             },
             error: function (err) {
-                alert('Error While submitting the form. Error AJAX.')
+                Swal.fire({
+                    icon: 'error',
+                    title: '',
+                    text: 'Error Occururd. Error Code:FORMAJAXADD!',
+                    footer: 'Error Code:FAA!',
+                    timer: 2000
+                    
+                });
+            }
+        });
+    });
+    $('#customerFormupdate').on('submit', function (e) {
+        e.preventDefault();
+
+        data = Object.fromEntries(new FormData($('#customerFormupdate')[0]).entries());
+        data = JSON.stringify(data);
+        $.ajax({
+            url: "http://localhost:8081/formupdate",
+            data: data,
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (res) {
+                $('#updateModal').modal("toggle");
+                Swal.fire({
+                    icon: 'success',
+                    title: '',
+                    text: 'Successfully Updated!',
+                    timer: 2000
+                    
+                });
+                
+                myTable.ajax.reload();
+            },
+            error: function (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '',
+                    text: 'Error Occururd.',
+                    footer: 'Error Code:FAU!',
+                    timer: 2000
+                    
+                });
             }
         });
     });

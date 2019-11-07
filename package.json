@@ -16,7 +16,9 @@
         "express": "^4.17.1",
         "jquery": "^3.4.1",
         "knex": "^0.20.1",
-        "popper.js": "^1.16.0"
+        "popper.js": "^1.16.0",
+        "sweetalert2": "^9.1.5",
+        "xlsx": "^0.15.1"
     },
     "dependencies": {
         "sqlite3": "^4.0.9"

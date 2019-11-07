@@ -6,9 +6,18 @@
 .navbar {
     min-height: 60px;
   }
-  .dataTables_filter, .dataTables_info { display: none; }
+  /* .dataTables_filter, .dataTables_info { display: none; } */
+  .dataTables_filter { display: none; } 
 
   .form-group{
       margin-bottom: 0 !important;
   }
 
+
+  .exportExcel{
+    display: block !important;
+    padding: 5px;
+    border: 1px solid grey;
+    margin: 5px;
+    cursor: pointer;
+  }
