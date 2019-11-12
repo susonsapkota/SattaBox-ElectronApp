@@ -27,21 +27,27 @@
     <title>Satta Box 1.0.0</title>
 
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand">🗳️ SattaBox</a>
+        <div class="col-2">
+            <a class="navbar-brand">🗳️ SattaBox</a>
+        </div>
+        <div class="m-auto">
         <form class="form-inline">
-            <input class="form-control" type="search" id="filterbox" placeholder="🔎 Search customers ..."
+            <input class="form-control" type="search" id="filterbox" placeholder="🔎 Search customers..."
                 style="width: 500px;">
         </form>
-        <button class="btn" type="button" id="mySave">Save</button>
+        </div>
+        <div class="ml-auto">
+        <button class="btn btn-success" type="button" id="mySave">💾 Save</button>
         <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#exampleModal">➕ Add
             Customer</button>
+        </div>
     </nav>
 
 </head>
 
 <body>
     <div class="container-fluid">
-        <table id="dataTable" class="table  table-bordered" style="width:100%">
+        <table id="dataTable" class="table table-bordered mt-3" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">Date</th>
@@ -75,11 +81,11 @@
                 <div class="modal-body">
                     <form class="form-row" id="customerForm" name="form">
 
-                        <div class="form-group date col-md-6" data-provide="datepicker">
+                        <div class="form-group date col-md-6">
                             <label for="data-date" class="col-form-label ">Date:</label>
-                            <div class="input-group date" data-provide="datepicker">
+                            <div class="input-group date">
                                 <input type="text" class="form-control" id="data-date" placeholder="DD/MM/YYYY"
-                                    name="date">
+                                    name="date" required>
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -88,47 +94,47 @@
 
                         <div class="form-group col-md-12">
                             <label for="name" class="col-form-label ">Name:</label>
-                            <input type="text" class="form-control" id="name" placeholder=" Shree Prasad Gautam"
-                                name="name">
+                            <input type="text" class="form-control" id="name" placeholder=" S.P Gautam"
+                                name="name" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="address" class="col-form-label">Address:</label>
                             <input type="text" class="form-control" id="address" placeholder="Bharatpur,09,Chitwan"
-                                name="address">
+                                name="address" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="telephone" class="col-form-label">Telephone:</label>
                             <input type="text" class="form-control" id="telephonw" placeholder="9841XXXXXX/0565XXXXX"
-                                name="telephone">
+                                name="telephone" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="Ostb" class="col-form-label">Old STB No:</label>
-                            <input type="text" class="form-control" id="Ostb" placeholder="0AXXXXX" name="old_stb">
+                            <input type="text" class="form-control" id="Ostb" placeholder="0AXXXXX" name="old_stb" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="Nstb" class="col-form-label">New STB No:</label>
-                            <input type="text" class="form-control" id="Nstb" placeholder="0AXXXXX" name="new_stb">
+                            <input type="text" class="form-control" id="Nstb" placeholder="0AXXXXX" name="new_stb" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="osmart" class="col-form-label">Old Smart Card No:</label>
-                            <input type="text" class="form-control" id="smart" placeholder="0AXXXXX" name="old_smart">
+                            <input type="text" class="form-control" id="smart" placeholder="0AXXXXX" name="old_smart" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="nsmart" class="col-form-label">New Smart Card No:</label>
-                            <input type="text" class="form-control" id="smart" placeholder="0AXXXXX" name="new_smart">
+                            <input type="text" class="form-control" id="smart" placeholder="0AXXXXX" name="new_smart" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="warranty" class="col-form-label">Warranty No:</label>
-                            <input type="text" class="form-control" id="warranty" placeholder="0AXXXXX" name="warranty">
+                            <input type="text" class="form-control" id="warranty" placeholder="0AXXXXX" name="warranty" required>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="remarks" class="col-form-label">Remarks:</label>
                             <input type="text" class="form-control" id="remarks"
-                                placeholder="Any additional infomation..." name="remarks">
+                                placeholder="Any additional infomation..." name="remarks" required>
                         </div>
 
 
@@ -225,6 +231,10 @@
     </div>
 </body>
 <script>
+
+$("#exampleModal").on('hidden.bs.modal', function(){
+    $("#exampleModal").find($('input')).val('')
+  });
     const Swal = require('sweetalert2');
     $('#customerForm').on('submit', function (e) {
         e.preventDefault();

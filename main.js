@@ -3,22 +3,26 @@ const path = require('path');
 const url = require('url');
 var express = require('express');
 var japp = express();
-var fs = require("fs");
-
 var bodyParser = require('body-parser');
-
 
 var json = {
 	'data': []
 }
+
+fordb=app.getPath('userData')
+
+const pathToDbFile = path.join(fordb,
+	'/database.sqlite',
+  );
+// console.log(pathToDbFile)
 var knex = require("knex")({
 	client: "sqlite3",
 	connection: {
-		filename: path.join(__dirname, 'database.sqlite')
+		filename: pathToDbFile
 	},
 	useNullAsDefault: true
 });
-
+// console.log(knex)
 select = () => {
 	knex.from('customers').select("*")
 		.then((rows) => {
@@ -29,14 +33,11 @@ select = () => {
 				json['data'].push(row);
 			}
 
-
-		}).catch((err) => { console.log(err); throw err })
-		.finally(() => {
+		}).finally(() => {
 			// knex.destroy();
 		});
-
 }
-
+select()
 var server = japp.listen(8081, function () {
 	var host = server.address().address
 	var port = server.address().port
@@ -86,23 +87,18 @@ app.on("ready", () => {
 			nodeIntegration: true
 		}
 	});
-	
-	mainWindow.maximize();
-	mainWindow.setResizable(false);
+	mainWindow.setMenu(null)
+
 	mainWindow.loadURL(url.format({
 		pathname: path.join(__dirname, 'index.html'),
 		protocol: 'file',
 		slashes: true
 	}));
 
-
-	// mainWindow.setMenu(null)
-
-
+	
 	mainWindow.once("ready-to-show", () => {
 		mainWindow.show();
 	});
-
 });
 
 app.on("window-all-closed", () => {

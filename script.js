@@ -2,15 +2,13 @@ const path = require('path');
 const url = require('url');
 const app = require('electron').remote;
 var dialog = app.dialog;
-var fs = require('fs');
 var XLSX = require('xlsx');
 
-
-
-
-
-
 $(document).ready(function () {
+    $('#data-date').datepicker({
+        autoclose:true,
+        todayHighlight:true
+    });
     myTable = $('#dataTable').DataTable({
         destroy: true,
         dom: 'lfrtip',
@@ -102,56 +100,6 @@ $(document).ready(function () {
 
 });
 
-
-// function showDialog(){
-
-// //renderer.js - renderer process example
-// const {remote} = require('electron'),
-// dialog = remote.dialog,
-// WIN = remote.getCurrentWindow();
-
-// var today = new Date();
-// var dd = String(today.getDate()).padStart(2, '0');
-// var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-// var yyyy = today.getFullYear();
-
-// today = mm + '-' + dd + '-' + yyyy;
-
-
-
-// let options = {
-//  //Placeholder 1
-//  title: "Save as Excel",
-
-
-
-//  //Placeholder 2
-//  defaultPath : "C:\\"+today+".xlsx",
-
-//  //Placeholder 4
-//  buttonLabel : "Save",
-
-//  //Placeholder 3
-//  filters :[
-//   {name: 'All Files', extensions: ['*']}
-//  ]
-// }
-
-// dialog.showSaveDialog(WIN, options, (filename) => {
-//  console.log(filename)
-// })
-// }
-
-
-function s2ab(s) {
-    var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
-    var view = new Uint8Array(buf);  //create uint8array as viewer
-    for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
-    return buf;
-}
-
-
-
 $(function () {
     $("#mySave").click(function (e) {
 
@@ -163,88 +111,56 @@ $(function () {
             success: function (res) {
                 delete res['data']['id'];
 
-                exceldat=res['data']
-                delete exceldat['id'];
-                
-                console.log(exceldat)
+                var exceldat = res['data']
+
+                exceldat.forEach(function(item){ 
+                    delete item.id; 
+                });
+
                 var wb = XLSX.utils.book_new();
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear();
+                today = mm + '-' + dd + '-' + yyyy;
 
-        wb.Props = {
-            Title: "SheetJS Tutorial",
-            Subject: "Test",
-            Author: "Red Stapler",
-            CreatedDate: new Date(2017, 12, 19)
-        };
-        wb.SheetNames.push("Test Sheet");
-       
-        var ws = XLSX.utils.json_to_sheet(exceldat);
-        wb.Sheets["Test Sheet"] = ws;
+                wb.Props = {
+                    Title: "Satta Box Data",
+                    Subject: "BoxRecord",
+                    Author: "Suson Sapkota",
+                    CreatedDate: new Date(yyyy, mm, dd)
+                };
+                wb.SheetNames.push("Record");
 
-        WIN = app.getCurrentWindow();
+                var ws = XLSX.utils.json_to_sheet(exceldat);
+                wb.Sheets["Record"] = ws;
 
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = today.getFullYear();
-        today = mm + '-' + dd + '-' + yyyy;
+                WIN = app.getCurrentWindow();
+                paths = app.app // getting property called app from app
+                document_path = paths.getPath('documents');
 
-        paths = app.app // getting property called app from app
+                let options = {
+                    title: "Save as Excel",
+                    defaultPath: "document_path\\" + today + ".xlsx",
+                    buttonLabel: "Save",
+                    filters: [
+                        { name: 'All Files', extensions: ['*'] }
+                    ]
+                }
 
-        document_path = paths.getPath('documents');
-
-        let options = {
-            title: "Save as Excel",
-            defaultPath: "document_path\\" + today + ".xlsx",
-            buttonLabel: "Save",
-            filters: [
-                { name: 'All Files', extensions: ['*'] }
-            ]
-        }
-
-        var o = dialog.showSaveDialog(WIN,options);
-        XLSX.writeFile(wb, o);
-        dialog.showMessageBox({ message: "Exported data to " + o, buttons: ["OK"] });
+                var o = dialog.showSaveDialog(WIN, options);
+                XLSX.writeFile(wb, o);
+                Swal.fire({
+                    icon: 'success',
+                    title: '',
+                    text: 'Successfully exported data to'+ o,
+                    timer: 2500
+                });
 
             },
             error: function (err) {
             }
         });
-        
-
 
     });
-});
-
-
-
-// $(function () {
-//     $("#mySave").click(function (e) {
-//         dialog.showSaveDialog((filename) => {
-//             if (filename === undefined) {
-//                 alert('File was not saved.');
-//                 return;
-//             }
-
-//             var wb = XLSX.utils.book_new();
-
-//             wb.Props = {
-//                 Title: "SheetJS Tutorial",
-//                 Subject: "Test",
-//                 Author: "Red Stapler",
-//                 CreatedDate: new Date(2017, 12, 19)
-//             };
-//             wb.SheetNames.push("Test Sheet");
-//             var ws_data = [['hello' , 'world']];
-//             var ws = XLSX.utils.aoa_to_sheet(ws_data);
-//             wb.Sheets["Test Sheet"] = ws;
-
-
-//             fs.writeFile(filename, content, (err) => {
-//                 if (err) console.log(err);
-//                 alert("File was successfully saved.");
-//             })
-//         })
-
-//     });
-// });
-
+}); 

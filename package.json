@@ -1,26 +1,42 @@
 {
     "name": "satta-box",
     "version": "1.0.0",
-    "description": "",
+    "description": "Sattabox app",
     "main": "main.js",
+    "author": "Suson Sapkota",
     "scripts": {
         "postinstall": "install-app-deps",
         "start": "electron .",
-        "release": "build"
+        "release": "build",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder"
     },
     "devDependencies": {
-        "body-parser": "^1.19.0",
-        "bootstrap": "^4.3.1",
         "electron": "^5.0.6",
         "electron-builder": "^21.0.15",
+        "electron-packager": "^14.1.0"
+    },
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "bootstrap": "^4.3.1",
         "express": "^4.17.1",
         "jquery": "^3.4.1",
         "knex": "^0.20.1",
         "popper.js": "^1.16.0",
+        "sql.js": "^1.0.1",
+        "sqlite3": "^4.0.9",
         "sweetalert2": "^9.1.5",
         "xlsx": "^0.15.1"
     },
-    "dependencies": {
-        "sqlite3": "^4.0.9"
+    "build": {
+        "appId": "com.susonsapkota.sattabox",
+        "productName": "SattaBox App",
+        "win": {
+            "target": "NSIS"
+        },
+        "nsis": {
+            "allowToChangeInstallationDirectory": true,
+            "oneClick": false
+        }
     }
 }
