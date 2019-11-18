@@ -87,7 +87,8 @@ app.on("ready", () => {
 			nodeIntegration: true
 		}
 	});
-	mainWindow.setMenu(null)
+	mainWindow.setMenu(null);
+	mainWindow.maximize();
 
 	mainWindow.loadURL(url.format({
 		pathname: path.join(__dirname, 'index.html'),

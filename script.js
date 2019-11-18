@@ -5,9 +5,14 @@ var dialog = app.dialog;
 var XLSX = require('xlsx');
 
 $(document).ready(function () {
-    $('#data-date').datepicker({
-        autoclose:true,
-        todayHighlight:true
+    $('#data-date').nepaliDatePicker({
+
+        disableDaysBefore: '365',
+        disableDaysAfter: '356',
+        npdMonth: true,
+        npdYear: true,
+        npdYearCount: 10
+
     });
     myTable = $('#dataTable').DataTable({
         destroy: true,
@@ -113,8 +118,8 @@ $(function () {
 
                 var exceldat = res['data']
 
-                exceldat.forEach(function(item){ 
-                    delete item.id; 
+                exceldat.forEach(function (item) {
+                    delete item.id;
                 });
 
                 var wb = XLSX.utils.book_new();
@@ -141,7 +146,7 @@ $(function () {
 
                 let options = {
                     title: "Save as Excel",
-                    defaultPath: "document_path\\" + today + ".xlsx",
+                    defaultPath: "document_path\\" + "data" + ".xlsx",
                     buttonLabel: "Save",
                     filters: [
                         { name: 'All Files', extensions: ['*'] }
@@ -153,7 +158,7 @@ $(function () {
                 Swal.fire({
                     icon: 'success',
                     title: '',
-                    text: 'Successfully exported data to'+ o,
+                    text: 'Successfully exported data to' + o,
                     timer: 2500
                 });
 

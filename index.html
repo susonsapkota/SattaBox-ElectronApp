@@ -13,8 +13,12 @@
         window.$ = window.jQuery = require('jquery');
         window.Bootstrap = require('bootstrap');
     </script>
-    <link href="./static/bootstrap-datepicker.min.css" rel="stylesheet" />
-    <script src="./static/datepicker.js"></script>
+
+    <script type="text/javascript" src="./static/nepali.datepicker.v2.2.min.js"></script>
+    <link rel="stylesheet" href="./static/nepali.datepicker.v2.2.min.css">
+
+
+
 
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
@@ -50,17 +54,17 @@
         <table id="dataTable" class="table table-bordered mt-3" style="width:100%">
             <thead>
                 <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Telephone</th>
-                    <th scope="col">Old STB Num.</th>
-                    <th scope="col">New STB Num.</th>
-                    <th scope="col">Old Smart Num.</th>
-                    <th scope="col">New Smart Num.</th>
-                    <th scope="col">Warranty Num.</th>
-                    <th scope="col">Remarks</th>
-                    <th scope="col" width="9%">Update</th>
+                    <th scope="col" width="7%">Date</th>
+                    <th scope="col" width="9%">Name</th>
+                    <th scope="col" width="9%">Address</th>
+                    <th scope="col" width="9%">Telephone</th>
+                    <th scope="col" width="9%">Old STB Num.</th>
+                    <th scope="col" width="9%">New STB Num.</th>
+                    <th scope="col" width="9%">Old Smart Num.</th>
+                    <th scope="col" width="9%">New Smart Num.</th>
+                    <th scope="col" width="9%">Warranty Num.</th>
+                    <th scope="col" width="9%">Remarks</th>
+                    <th scope="col" width="12%">Update</th>
                 </tr>
             </thead>
         </table>
@@ -80,61 +84,55 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-row" id="customerForm" name="form">
-
-                        <div class="form-group date col-md-6">
-                            <label for="data-date" class="col-form-label ">Date:</label>
-                            <div class="input-group date">
-                                <input type="text" class="form-control" id="data-date" placeholder="DD/MM/YYYY"
+                        <div class="form-group col-md-6">
+                            <label for="data-date" class="col-form-label">Date:</label>
+                            <input type="text" class="form-control" id="data-date"
                                     name="date" required>
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th"></span>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="name" class="col-form-label ">Name:</label>
-                            <input type="text" class="form-control" id="name" placeholder=" S.P Gautam"
+                            <input type="text" class="form-control" id="name"
                                 name="name" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="address" class="col-form-label">Address:</label>
-                            <input type="text" class="form-control" id="address" placeholder="Bharatpur,09,Chitwan"
+                            <input type="text" class="form-control" id="address"
                                 name="address" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="telephone" class="col-form-label">Telephone:</label>
-                            <input type="text" class="form-control" id="telephonw" placeholder="9841XXXXXX/0565XXXXX"
+                            <input type="text" class="form-control" id="telephonw"
                                 name="telephone" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="Ostb" class="col-form-label">Old STB No:</label>
-                            <input type="text" class="form-control" id="Ostb" placeholder="0AXXXXX" name="old_stb" required>
+                            <input type="text" class="form-control" id="Ostb" name="old_stb" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="Nstb" class="col-form-label">New STB No:</label>
-                            <input type="text" class="form-control" id="Nstb" placeholder="0AXXXXX" name="new_stb" required>
+                            <input type="text" class="form-control" id="Nstb" name="new_stb" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="osmart" class="col-form-label">Old Smart Card No:</label>
-                            <input type="text" class="form-control" id="smart" placeholder="0AXXXXX" name="old_smart" required>
+                            <input type="text" class="form-control" id="smart"  name="old_smart" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="nsmart" class="col-form-label">New Smart Card No:</label>
-                            <input type="text" class="form-control" id="smart" placeholder="0AXXXXX" name="new_smart" required>
+                            <input type="text" class="form-control" id="smart"  name="new_smart" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="warranty" class="col-form-label">Warranty No:</label>
-                            <input type="text" class="form-control" id="warranty" placeholder="0AXXXXX" name="warranty" required>
+                            <input type="text" class="form-control" id="warranty"  name="warranty" required>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="remarks" class="col-form-label">Remarks:</label>
                             <input type="text" class="form-control" id="remarks"
-                                placeholder="Any additional infomation..." name="remarks" required>
+                                name="remarks" required>
                         </div>
 
 
